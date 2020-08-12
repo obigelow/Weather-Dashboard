@@ -1,4 +1,6 @@
-var city = "portland";
+$("#search-button").on("click", function(){
+    console.log("hello")
+var city = $("#city-search").val();
 var latLongUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=AIzaSyCLjaOmTbNl8M0ewJ5amY9cm6rytBGUVZM"
 
 $.ajax({
@@ -26,5 +28,5 @@ $.ajax({
         console.log(dateArray[i])
         }
     })
-
+})
 })

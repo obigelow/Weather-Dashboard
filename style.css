@@ -11,3 +11,8 @@
 .current-weather, .future-weather {
     border-style: solid;
 }
+
+.future-forecast {
+    float: left;
+    margin-right: 15px;
+}

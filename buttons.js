@@ -1,18 +1,9 @@
-var cityArray = [];
-getButtons()
-var weatherIcon;
-$("#search-button").on("click", function () {
+$(document).on("click", ".city-search-button", function () {
     $(".future-weather").empty()
     $(".future-weather").attr("style", "display: block;")
     $(".current-weather").attr("style", "display: block;")
-    var city = $("#city-search").val();
-    cityArray.push(city)
-    var cityButton = $("<button>").text(city)
-    cityButton.attr("class", "city-search-button btn btn-outline-secondary")
-    cityButton.attr("value", city)
-    $(".city-buttons").append(cityButton)
-    setButtons()
-    $("#city-search").val("");
+    var city = $(this).val()
+
 
     var latLongUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + "&key=AIzaSyCLjaOmTbNl8M0ewJ5amY9cm6rytBGUVZM"
 
@@ -28,7 +19,6 @@ $("#search-button").on("click", function () {
             url: weatherUrl,
             method: "GET"
         }).then(function (weatherResponse) {
-
             console.log(weatherResponse)
 
             dateArray = [];
@@ -40,8 +30,8 @@ $("#search-button").on("click", function () {
                 var timeInMilliSeconds = unixTime * 1000;
                 var date = new Date(timeInMilliSeconds);
                 var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
-                var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
-                var year = date.getFullYear();
+                var month = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1); 
+                var year = date.getFullYear(); 
                 dateArray.push(month + "/" + day + "/" + year)
 
                 var temp = weatherResponse.daily[i].temp.max
@@ -64,10 +54,10 @@ $("#search-button").on("click", function () {
 
                 futureDiv.append(futureDate, futureWeatherIcon, futureTemp, futureHumid)
                 $(".future-weather").append(futureDiv)
-
+               
 
             }
-
+            
             var currentDiv = $("<div>")
             var currentCityDate = $("<p>").html("<h3>" + city + " (" + dateArray[0] + ")</h3>")
             var currentTemp = $("<p>").html("<h5>Temperature: " + tempArray[0] + " F<h5>")
@@ -80,7 +70,6 @@ $("#search-button").on("click", function () {
             weatherIcon.attr("src", "http://openweathermap.org/img/wn/" + iconWeather + "@2x.png");
             currentCityDate.append(weatherIcon);
 
-            currentDiv.attr("class", "card-body")
             currentDiv.append(currentCityDate, currentTemp, currentHumid, currentWind, currentUVI)
             $(".current-weather").html(currentDiv)
 
@@ -89,19 +78,3 @@ $("#search-button").on("click", function () {
     })
 
 })
-function getButtons() {
-    var storedCity = JSON.parse(localStorage.getItem("cityButtons"))
-    if (storedCity) {
-        for (var i = 0; i < storedCity.length; i++) {
-            cityArray.push(storedCity[i])
-            var storedCityButton = $("<button>").text(storedCity[i])
-            storedCityButton.attr("class", "city-search-button btn btn-outline-secondary")
-            storedCityButton.attr("value", storedCity[i])
-            $(".city-buttons").append(storedCityButton)
-        }
-    }
-
-}
-function setButtons() {
-    localStorage.setItem("cityButtons", JSON.stringify(cityArray))
-}

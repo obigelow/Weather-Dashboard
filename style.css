@@ -10,9 +10,31 @@
 }
 .current-weather, .future-weather {
     border-style: solid;
+    display: none;
 }
 
 .future-forecast {
     float: left;
-    margin-right: 15px;
+    background-color: rgb(36, 145, 255);
+    color: white;
+    border-radius: 5px;
+    width: 16%;
+    text-align: center;
+    margin: 2px;
+
+}
+
+.city-search-button {
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+@media only screen and (max-width: 991px) {
+
+ 
+    .future-forecast {
+        width: 100%;
+
+    
+    }
 }
